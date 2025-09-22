@@ -15,35 +15,70 @@
 
 ### Program:
 ```python
-# Visitor segmentation based on characteristics
-# read the data
-/*WRITE YOUR CODE HERE
+python
 
-# Perform segmentation based on characteristics (e.g., age groups)
-/*WRITE YOUR CODE HERE
+import pandas as pd
+df=pd.read_csv("/content/clustervisitor.csv")
+df
 
-```
-### Output:
+cluster = {"Young":(df['Age']<=30),"Middle":((df['Age']>30) & (df['Age']<=50)),"Old":(df['Age']>50)}
+print(cluster)
 
-### Visualization:
-```python
-# Create a list to store counts of visitors in each age group
-/*WRITE YOUR CODE HERE
+count=[]
+for g,c in cluster.items():
+  visitors=df[c]
+  count.append(len(visitors))
+  print(f"visitors in {g} Group")
+  print(visitors)
+  print(count)
 
-# Count visitors in each age group
-/*WRITE YOUR CODE HERE
-    
-# Define age group labels and plot a bar chart
-/*WRITE YOUR CODE HERE
-
-plt.figure(figsize=(8, 6))
-plt.bar(age_group_labels, visitor_counts, color='skyblue')
+import matplotlib.pyplot as plt
+plt.figure(figsize=(8,6))
+plt.bar(cluster.keys(),count,color='skyblue')
 plt.xlabel('Age Groups')
 plt.ylabel('Number of Visitors')
 plt.title('Visitor Distribution Across Age Groups')
 plt.show()
+
 ```
 ### Output:
+<img width="403" height="694" alt="image" src="https://github.com/user-attachments/assets/ed2d3d4b-a991-4c0c-87c1-444a1fd0ba8c" />
+
+<img width="804" height="561" alt="image" src="https://github.com/user-attachments/assets/343ff1a1-c830-472e-9b1a-866773a25f6d" />
+
+
+### Visualization:
+```python
+python
+
+import pandas as pd
+df=pd.read_csv("/content/clustervisitor (Salary).csv")
+df
+
+df1=df['Age']
+df2=df['Salary']
+df3=pd.concat([df1,df2],axis=1)
+df3
+
+from sklearn.preprocessing import StandardScaler
+from sklearn.cluster import KMeans
+
+kmeans=KMeans(n_clusters=3,random_state=42)
+df3['cluster']=kmeans.fit_predict(df3)
+df3
+
+plt.scatter(df3['Age'],df3['Salary'],c=df3['cluster'])
+plt.xlabel('Age')
+plt.ylabel('Salary')
+plt.title('Clustered Data')
+plt.show()
+
+```
+### Output:
+<img width="133" height="616" alt="image" src="https://github.com/user-attachments/assets/09b037b1-5389-4736-9419-beb75527f57d" />
+<img width="133" height="616" alt="image" src="https://github.com/user-attachments/assets/06d99c38-251f-4bdf-a110-d4d824ee3370" />
+
 
 
 ### Result:
+The implement Cluster and Visitor Segmentation for Navigation patterns in Python is execute successfully.
